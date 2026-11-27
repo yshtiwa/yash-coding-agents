@@ -1,51 +1,98 @@
 ---
 name: ticket
-description: Open one ticket before any code is written. Asks every question this ticket needs, then adds a written check to the ticket for how we will know it works. Use as "/ticket" for the next ticket in line, "/ticket 05" to pick one, or when the user says "start the next ticket".
+description: Open one ticket before any code is written. Use as "/ticket" for the next ticket in line, "/ticket 05" to pick one, or when the user says "start the next ticket", even when the ticket looks obvious.
 ---
 
 # Ticket
 
-No code is written until this is done. One ticket is one small change.
+No code is written until this is done. One ticket is one small change. Read
+`../standards/SKILL.md` section 7 first.
 
-## Steps
+## 1. Find it and say it back
 
-1. **Find the ticket.** Read `docs/agents/issue-tracker.md` if it exists. With
-   no number given, take the lowest-numbered ticket that is not done and not
-   blocked, and say which one you picked and why. With a number, open that
-   one. If its blockers are not finished, stop and say which. Work on the
-   existing ticket file; only write a new ticket when none exists for the work.
-2. **Read around it.** The repo's `CLAUDE.md`, the glossary, any decision
-   records for this area, and the code the ticket will touch.
-3. **Ask until nothing is unclear.** One question at a time, each with your
-   recommended answer first. Follow up on any answer that opens a new
-   question. There is no limit on the number of questions. The only limit is
-   scope: every question must be about this ticket. A question about a later
-   ticket is written into that ticket as a note, not asked now. If an answer
-   changes a term or a hard-to-reverse decision, update the glossary or add a
-   decision record.
-4. **Update the ticket in place.** Record the answers under `## Decisions`,
-   then add the check under a heading `## How we will know it works`:
-   - the test cases, each as input and expected output, in plain words;
-   - the one real command that will be run as proof, and what its output
-     should show;
-   - what is deliberately not in this ticket.
-5. **Guess the size.** If it looks like more than about 150 changed lines,
-   propose a split before starting.
-6. **Mark the ticket as claimed** in the way the tracker file describes.
+Read `docs/agents/issue-tracker.md` to learn where tickets live; with no such
+file, look in `docs/tickets/`. If there are no tickets at all, stop: the
+`kickoff` skill comes first. With no number given, take the lowest-numbered
+ticket whose `Progress:` is not done and that is not blocked. If its blockers are unfinished, stop and say which. Work on the
+existing ticket file; write a new one only when none exists for the work.
 
-## Branch
+Then tell the user, in your own words: **the ticket's title, what it asks
+for, and the smallest change that would meet it.** A misreading caught here
+costs nothing.
 
-If the repo works through pull requests, give the user the command to start a
-branch, for example `git switch -c feat/02-routine-adjustments`. Follow the
-repo's naming if it has one. Do not create the branch yourself unless the repo's
-rules say you may.
+## 2. Read around it
+
+The repo's `CLAUDE.md`, the glossary, decision records for this area, the
+proof recipe (`docs/agents/proof.md`) if there is one, and the code the
+ticket will touch. Note the kind of change: **new behaviour, bug, or
+structure only.** A bug goes to the `bugfix` skill instead.
+
+*Done when* you can list your assumptions as numbered lines. Show them.
+
+## 3. Ask until nothing is unclear
+
+- Ask in **small rounds**: up to three questions that do not depend on each
+  other, each with your recommended answer and the plain reason, worded so
+  "yes" accepts it. Then the follow-ups those answers opened.
+- **No limit on the number of questions.** The limit is scope: every question
+  is about this ticket. A question about a later ticket is written into that
+  ticket as a note.
+- **Ask only what needs a person's judgement.** Anything the repo or a
+  command can answer, look up.
+- **A technical choice the user cannot judge** is yours. State it and record
+  it as "agent decision, for the reviewer to check".
+- **A question for the reviewer** becomes a short message the user can send.
+- Always ask yourself, and the user if unsure: **what, other than the two of
+  us, would show the result is right?**
+
+*Done when* you can say the plan back and the user gives a clear yes.
+
+## 4. Write the check into the ticket
+
+Add `## Decisions` as a table (decision, why, who decided). Then add
+`## How we will know it works`:
+
+- **Cases:** one for each line of the ticket's "Done when" list, each as
+  input and expected output, in plain words. For each,
+  one line on what you would see if it were false. A case that could not
+  fail today is not a case.
+- **Where the tests sit:** which function or stage each case is tested at,
+  and what that place cannot catch.
+- **The proof:** the one real command to run, what its output must show,
+  and that it reports how many items it handled and how many errors.
+- **Must not change:** existing behaviour this ticket has to leave alone.
+- **Out of scope:** what is deliberately left for later.
+
+Add these when they apply:
+
+- A new or moved **data field:** its label (non-personal, personal,
+  sensitive), why it is kept, how long.
+- A step that **writes or sends:** what happens if it runs twice, or stops
+  halfway.
+- **Structure-only change:** how the current output will be recorded first.
+- New code that can fail in use: **the questions someone will ask when it
+  breaks,** so the logs can answer them.
+
+## 5. Size it
+
+Use the size rule in the standards (section 5). Propose a split when: the title
+needs "and", there are more than four cases, it touches two separate areas,
+or you cannot say what could be demoed when it is done.
+
+## 6. Claim it
+
+Set the ticket's `Progress:` line to `claimed` (add the line if it is
+missing; leave any other status line the repo uses alone). If the repo works
+through pull requests, work out the branch command, for example
+`git switch -c feat/02-routine-adjustments`, following the repo's naming.
 
 ## Finish
 
-End with:
-
 ```
-Ticket NN is ready: <one sentence of what will be built>
+Ticket: <title>
+Will build: <one sentence>
+Proof will be: <the command>
+First, run this yourself: <the branch command, if the repo uses branches>
 Next step: build it.
 Type this: /build
 ```

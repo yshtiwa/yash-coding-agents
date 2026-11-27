@@ -9,6 +9,9 @@ for dir in "$here"/skills/*/; do
     echo "skipped $name: a different skill with that name is already installed"
     continue
   fi
+  if [ -L "$target" ] && [ "$(readlink "$target")" != "${dir%/}" ]; then
+    echo "replacing $name: it pointed at $(readlink "$target")"
+  fi
   ln -sfn "${dir%/}" "$target"
   echo "linked $name"
 done
