@@ -106,6 +106,12 @@ An earlier version of this pack left out speed, architecture, security
 review and release work. That was a mistake of scope, not a decision: they
 are part of any real project, and are now covered.
 
+## One addition of its own
+
+`visualize` comes from none of the three sources. It draws the whole plan
+on one page from the ticket files, because a person who does not read code
+needs to see the shape of the work, not a list of file names.
+
 ## How the pack is tested
 
 The skills have their own tests in `evals/`: a structure check, a routing

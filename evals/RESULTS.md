@@ -8,10 +8,11 @@ these as a snapshot, not a guarantee.
 
 | Check | Result |
 |---|---|
-| `check-structure.sh` | All checks passed, 17 skills |
+| `check-structure.sh` | All checks passed, 18 skills |
 | `hooks/test-guard.sh` | All checks passed, about 60 commands |
 | `run-next-scenarios.sh` | 10 of 10: `/next` named the right skill in every made-up repo |
-| `run-triggers.sh` | 51 of 54 requests reached the expected skill |
+| `run-triggers.sh` | 56 of 59 requests reached the expected skill |
+| `visualize/build_overview.py` | Run on a real 12-ticket plan and on a mixed-state copy of it; both pictures were checked by eye |
 
 In the scenarios, `/next` also did two things worth noting. Given a ticket
 marked "built" while the tests were red, it refused to trust the label and
@@ -38,6 +39,9 @@ unprompted.
   test rig.
 - `/design`, `/security`, `/release`, `/speed`, `/briefing` and `/quick`
   are new and have not yet been used on real work.
+- `/visualize`: the drawing script has been run for real, but the skill's
+  own steps (checking labels against the repo, the shared-board option)
+  have not. Plans with more than one slice have not been drawn.
 - Nothing here measures whether the skills produce better code than no
   skills at all.
 - Only Claude Code has been tried. Other agent tools are untested.

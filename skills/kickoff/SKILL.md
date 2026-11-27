@@ -108,6 +108,7 @@ your job, not theirs. Repeat until the user says yes.
 ```
 Planned: <N> tickets for <one-sentence goal>
 Not doing: <the out-of-scope list>
+To see the plan as a picture: /visualize
 Next step: open the first ticket.
 Type this: /ticket
 ```

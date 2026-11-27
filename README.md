@@ -1,6 +1,6 @@
 # Yash Coding Skills
 
-Seventeen skills for Claude Code that take a piece of software work from an
+Eighteen skills for Claude Code that take a piece of software work from an
 idea to a change a reviewer can accept. The AI agent writes the code. You
 decide what gets built, check it, explain it back, and run every command
 that changes the codebase.
@@ -80,6 +80,7 @@ A normal day looks like this:
 | I want to... | Type |
 |---|---|
 | Know what to do next | `/next` |
+| See the whole plan and how far along it is, as a picture | `/visualize` |
 | Plan a new feature or a new project | `/kickoff` |
 | Start the next piece of planned work | `/ticket` |
 | Decide how something should be built before building it | `/design` |
@@ -176,6 +177,22 @@ bigger path. Only you can ask for the smaller one.
 - **What happens:** it reads the project's state (changed files, tickets,
   tests, open pull requests) and picks the one next step.
 - **You get:** "Where you are / Next step / Type this / Why".
+
+### `/visualize`
+- **Use it when** you want the big picture: every slice, every ticket,
+  what is done and what comes next. Good after `/kickoff` and at any point
+  you lose track.
+- **What happens:** it reads the ticket files, checks their labels against
+  what is really in the repo, and draws one page: a progress bar for the
+  whole project, one for each slice, and a map of tickets from left to
+  right in the order they unblock each other. Green is done, amber is in
+  progress, blue can start now, grey is waiting.
+- **You get:** `.agent-notes/overview.html`, a page that opens in any
+  browser with no network. Run the skill again to refresh it.
+- **On a shared board:** if you ask, and a connector for a whiteboard tool
+  such as Miro is set up, it can draw the same picture there. It tells you
+  exactly what it will send and waits for your yes.
+- **It changes nothing** in the project.
 
 ### `/kickoff`
 - **Use it when** starting a new feature, slice or project, before any
@@ -324,6 +341,7 @@ lane with no judge and no explain-back.
 | What is happening | What to do |
 |---|---|
 | I do not know what to do | `/next` |
+| I have lost track of the whole plan | `/visualize` |
 | I do not understand what the agent just said | Say "you lost me". It repeats it more simply. |
 | The agent asks me something I cannot judge | Say so. It should make the call itself and mark it "for the reviewer to check". |
 | The agent wants to commit or push for me | Say no. It should hand you the command. To enforce this, turn on the git guard ([section 11](#11-install-swap-and-extras)). |
@@ -354,7 +372,7 @@ as they are first needed.
 | `docs/agents/checks.md` | Which rule is enforced by which check (from `/lessons`) | Yes |
 | `GLOSSARY.md` | The project's words, one meaning each. Created the first time a term is settled | Yes |
 | `docs/adr/` | Decision records: choices that are hard to reverse. Created with the first such decision | Yes |
-| `.agent-notes/` | Working notes: handoff, build logs, what you have learned | No (ignored) |
+| `.agent-notes/` | Working notes: handoff, build logs, what you have learned, the overview picture | No (ignored) |
 
 A ticket's `Progress:` line moves through: `ready` → `claimed` → `built` →
 `explained` → `done`.
@@ -421,6 +439,7 @@ skips the judge and the explain-back but keeps every other check.
 | Stage of software work | Skill |
 |---|---|
 | Requirements and planning | `/kickoff`, `/ticket` |
+| Seeing the plan and its progress | `/visualize` |
 | Architecture and interface design | `/design` |
 | Building and testing | `/build`, `/quick` |
 | Verifying it really works | `/build` step 5, `/proof` |
@@ -448,7 +467,7 @@ Tests for the skills themselves live in `evals/`.
 | Check | What it shows | Cost |
 |---|---|---|
 | `evals/check-structure.sh` | Every skill is well-formed and every "type this" points at a real skill | Free, instant |
-| `evals/run-triggers.sh` | 54 sample requests each reach the right skill, or no skill | One short agent call |
+| `evals/run-triggers.sh` | 59 sample requests each reach the right skill, or no skill | One short agent call |
 | `evals/run-next-scenarios.sh` | In ten small made-up repos, each in a known state, `/next` names the right step | Ten agent calls |
 | `hooks/test-guard.sh` | The git guard blocks and allows the right commands | Free, instant |
 

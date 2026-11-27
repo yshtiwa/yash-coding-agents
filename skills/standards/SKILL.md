@@ -194,8 +194,8 @@ change up a row at any time; only the user may move it down.
 Other skills are tools for a moment, not steps in every ticket: `/bugfix`
 when something is broken, `/speed` when something is measurably slow,
 `/release` to set up automatic checks or put a change into use, `/briefing`
-when the agent keeps guessing, `/proof`, `/handoff` and `/lessons` as
-`/next` suggests them.
+when the agent keeps guessing, `/visualize` for a picture of the whole plan,
+and `/proof`, `/handoff` and `/lessons` as `/next` suggests them.
 
 ## Credits
 

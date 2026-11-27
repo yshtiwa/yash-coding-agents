@@ -59,6 +59,7 @@ user; carry on down the table.
 If the user arrives with a new request instead of asking where they are,
 size it first (standards section 10): tiny goes to `/quick`, a bug to
 `/bugfix`, something slow to `/speed`, new work to `/ticket` or `/kickoff`.
+A request to see the whole plan or its progress goes to `/visualize`.
 
 ## Sessions
 
