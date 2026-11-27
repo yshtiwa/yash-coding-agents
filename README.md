@@ -6,7 +6,7 @@ for review". They sit on top of whatever planning skills a repo already uses.
 | Type this | What it does |
 |---|---|
 | `/next` | Looks at the repo and says the one next step and what to type |
-| `/ticket 02` | Opens a ticket: a few questions, then a written check |
+| `/ticket` | Opens the next ticket in line: questions until nothing is unclear, then a written check added to the ticket. `/ticket 05` picks a specific one |
 | `/build` | Test first, code, real run as proof, fresh judge scores it |
 | `/explain` | Plain-English walk-through, then three reviewer questions |
 | `/pr` | Size and standards gate, commit message, PR description, commands |

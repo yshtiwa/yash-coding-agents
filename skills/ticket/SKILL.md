@@ -1,6 +1,6 @@
 ---
 name: ticket
-description: Open one ticket before any code is written. Asks only the questions this ticket needs and ends with a written check for how we will know it works. Use as "/ticket 02" or when the user says "start the next ticket".
+description: Open one ticket before any code is written. Asks every question this ticket needs, then adds a written check to the ticket for how we will know it works. Use as "/ticket" for the next ticket in line, "/ticket 05" to pick one, or when the user says "start the next ticket".
 ---
 
 # Ticket
@@ -9,15 +9,22 @@ No code is written until this is done. One ticket is one small change.
 
 ## Steps
 
-1. **Find the ticket.** Read `docs/agents/issue-tracker.md` if it exists. Open
-   the ticket the user named, or the lowest-numbered unblocked one. If its
-   blockers are not finished, stop and say which.
+1. **Find the ticket.** Read `docs/agents/issue-tracker.md` if it exists. With
+   no number given, take the lowest-numbered ticket that is not done and not
+   blocked, and say which one you picked and why. With a number, open that
+   one. If its blockers are not finished, stop and say which. Work on the
+   existing ticket file; only write a new ticket when none exists for the work.
 2. **Read around it.** The repo's `CLAUDE.md`, the glossary, any decision
    records for this area, and the code the ticket will touch.
-3. **Ask only what blocks this ticket.** At most three questions, one at a
-   time, each with your recommended answer first. If nothing blocks, ask
-   nothing. Questions about later tickets wait for those tickets.
-4. **Write the check into the ticket** under a heading `## How we will know it works`:
+3. **Ask until nothing is unclear.** One question at a time, each with your
+   recommended answer first. Follow up on any answer that opens a new
+   question. There is no limit on the number of questions. The only limit is
+   scope: every question must be about this ticket. A question about a later
+   ticket is written into that ticket as a note, not asked now. If an answer
+   changes a term or a hard-to-reverse decision, update the glossary or add a
+   decision record.
+4. **Update the ticket in place.** Record the answers under `## Decisions`,
+   then add the check under a heading `## How we will know it works`:
    - the test cases, each as input and expected output, in plain words;
    - the one real command that will be run as proof, and what its output
      should show;
