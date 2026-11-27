@@ -30,6 +30,9 @@ you opened.
   notes, checkpoints). Add it to the repo's ignore file so it is never
   committed.
 
+`GLOSSARY.md` and `docs/adr/` are created the first time a term or a
+decision is settled, not before.
+
 ## 2. Say what you think they want
 
 One sentence: what you believe the user wants, and how sure you are as a

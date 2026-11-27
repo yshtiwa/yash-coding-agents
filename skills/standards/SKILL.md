@@ -1,6 +1,6 @@
 ---
 name: standards
-description: The engineering standards every change must meet, and how the agent must behave while working. Read before writing, reviewing or packaging code, even when the change looks obvious.
+description: The engineering standards every change must meet, and how the agent must behave while working. Read before writing, reviewing or packaging code.
 ---
 
 # Engineering standards
@@ -107,11 +107,12 @@ the repo's `CLAUDE.md` or `AGENTS.md`, then this file. Say so when it happens.
   read the code and reasoned), or not checked.
 - **A check that could not run did not pass.** Say "could not check".
 - **A verdict belongs to one exact diff.** Change the code and it is void.
-  The **diff fingerprint** is how skills tell: the output of
-  `(git diff HEAD -- . ':(exclude)TICKETS'; git status --short -- . ':(exclude)TICKETS') | shasum`,
-  with TICKETS replaced by the tickets folder. It covers code and tests, not
-  the ticket text.
-- **A passing check is not re-run on unchanged code** for reassurance.
+  The **diff fingerprint** is how skills tell. It is the output of this
+  command, with TICKETS replaced by the tickets folder:
+  `{ git diff HEAD -- . ':(exclude)TICKETS'; git ls-files --others --exclude-standard -- . ':(exclude)TICKETS' | while IFS= read -r f; do echo "$f"; cat "$f"; done; } | shasum`
+  It covers changed files and the contents of new files, not the ticket text.
+- **Within one step, a passing check is not re-run on unchanged code** for
+  reassurance. The final gate in `/pr` always runs everything once.
 
 ## 7. How the agent behaves
 
@@ -138,12 +139,16 @@ the repo's `CLAUDE.md` or `AGENTS.md`, then this file. Say so when it happens.
   sub-agent when the job is mechanical. A sub-agent's report is a claim to
   check, not a fact.
 - **When a file a skill needs is missing, stop and say so.** Do not improvise.
+- **Keep the session clear:** one ticket per session, read only what the
+  task needs, hand off before leaving mid-ticket. See the `briefing` skill.
 - **Announce anything skipped.** Skipping can be right; silent skipping never is.
 
 ## 8. Definition of done
 
 A ticket's own check says "did we build the right thing". This list says "is
-it ready". Both must hold, every time.
+it ready". Both must hold for every normal and high-stakes change. For a
+tiny change or a support change (section 10), items 1, 2 and 10 do not
+apply; the rest do.
 
 1. The ticket's check passes, shown by a real run with a VERIFIED verdict.
 2. New behaviour has tests that fail without the change and pass with it.
@@ -172,6 +177,25 @@ it ready". Both must hold, every time.
 | "We're short on time." | A deadline is a reason to cut scope, not checks. |
 | "We've come this far." | Work already spent is not a reason to keep a wrong approach. |
 | "They said just do it." | Do it, and still run the checks. |
+
+## 10. Match the effort to the stakes
+
+The process should cost about what a mistake would cost.
+
+| Stakes | What it looks like | The path |
+|---|---|---|
+| **Tiny** | A typo, wording, a rename with no change in behaviour, one setting value; about 20 lines; no logic | `/quick`, then `/pr` |
+| **Normal** | New or changed logic inside the existing shape | `/ticket`, `/build`, `/explain`, `/pr` |
+| **High** | Personal or sensitive data, money, logins or permissions, a stored format, an outside service, a step that cannot be undone, or a new shape other code will depend on | `/ticket`, `/design`, `/build`, `/security`, `/explain`, `/pr` |
+
+When unsure between two rows, take the higher one. The user may move a
+change up a row at any time; only the user may move it down.
+
+Other skills are tools for a moment, not steps in every ticket: `/bugfix`
+when something is broken, `/speed` when something is measurably slow,
+`/release` to set up automatic checks or put a change into use, `/briefing`
+when the agent keeps guessing, `/proof`, `/handoff` and `/lessons` as
+`/next` suggests them.
 
 ## Credits
 

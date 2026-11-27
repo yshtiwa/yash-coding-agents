@@ -21,6 +21,7 @@ reviewer can disagree with them.
 - Debugging starts with one command that fails; ranked theories before
   testing. → `bugfix`
 - Handoff between sessions; one ticket per session. → `handoff`, `next`
+- The deletion test, and "a swap point needs two real users". → `design`
 - The reviewer holds the standards; mechanical rules become checks. → `lessons`
 
 **pstack by Lauren Tan** (the question: can you prove it works?)
@@ -37,6 +38,9 @@ reviewer can disagree with them.
 - A judge blocks only on what it can show; its bar is the written bar. → `build`
 - Corrections become checks, strongest enforcer first. → `lessons`
 - The 30-second reader question; moves that hide a bug. → `review-checklist`
+- Two shapes before code, picked by named tests; what a change could
+  break outside its own lines. → `design`
+- "Did it error, and did the work even happen?" for every measurement. → `speed`
 
 **agent-skills by Addy Osmani** (the question: did we follow the whole process?)
 
@@ -50,6 +54,12 @@ reviewer can disagree with them.
 - Privacy: label each field; scan that prints file names only; AI output
   is outside input. Logging rules. → `standards/data-and-privacy.md`
 - Risk and "how to undo this" in every pull request. → `pr`
+- Threat modelling in five minutes, and a security checklist. → `security`
+- Interface rules, and changing shared things in three steps. → `design`
+- Checks on every change, cheapest first; a written way back before any
+  release. → `release`
+- Measure first; a change that is not clearly faster is undone. → `speed`
+- What the agent is told, and when to start a fresh session. → `briefing`
 
 ## Where the sources disagree, and what this pack does
 
@@ -68,14 +78,41 @@ reviewer can disagree with them.
 | A rule in CLAUDE.md? | All three: weakest option | Last resort, after structure, lint, test and pre-commit check. |
 | Safe default or error? | Addy allows a fallback | Our own mistake stops the run loudly. |
 
+## Effort matched to the stakes
+
+All three sources warn that heavy process on small changes is waste. This
+pack sizes every change first:
+
+- **Tiny** (a typo, a rename, one setting): `quick`, then a light `pr`. No
+  ticket, no judge, no explain-back.
+- **Normal:** `ticket`, `build`, `explain`, `pr`.
+- **High stakes** (personal data, money, stored formats, anything that
+  cannot be undone): `design` before the build and `security` after it.
+
 ## Left out on purpose
 
 - Running many agents at once, several AI vendors, agents that merge their
   own work overnight. These need a large budget and long-earned trust.
-- Anything for websites: browsers, accessibility, page speed, components.
-- TypeScript, React and JavaScript tooling. The pack stays language-neutral.
-- Formal proof tools. Launch and rollout practices for large products.
-- Public open-source repo upkeep: triage labels, issue forms, release tools.
+- Tools tied to one language or framework (TypeScript, React, a specific
+  test runner). The skills name "the repo's own command" instead.
+- Deep website-only practice: accessibility audits, component design,
+  browser tooling. `speed` has a short section for screens; the rest waits
+  until a project needs it.
+- Formal proof tools, and rollout machinery for very large products
+  (traffic splitting, error budgets, on-call rotations).
+- Public open-source upkeep: triage labels, issue forms, release tooling.
+
+An earlier version of this pack left out speed, architecture, security
+review and release work. That was a mistake of scope, not a decision: they
+are part of any real project, and are now covered.
+
+## How the pack is tested
+
+The skills have their own tests in `evals/`: a structure check, a routing
+check on sample requests, and behaviour checks that run `/next` in small
+made-up repos. Results, and what is still untested, are in
+`evals/RESULTS.md`. Each new skill should arrive with at least three
+requests that should reach it and two that should not.
 
 ## Open questions for the lead engineer
 
@@ -84,3 +121,6 @@ reviewer can disagree with them.
 3. Comments: one docstring per function, or fewer?
 4. Commit format, and squash or keep each commit?
 5. Does this repo need the optional git guard turned on?
+6. Which checks should the pipeline run, and does merging to the main
+   branch release automatically?
+7. Which changes count as high stakes here?

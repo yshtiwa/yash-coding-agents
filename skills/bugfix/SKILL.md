@@ -1,6 +1,6 @@
 ---
 name: bugfix
-description: Find and fix a bug or a failing test by reproducing it first. Use when tests fail, something behaves wrongly, a run crashes, or the user says "this is broken" or "why is this happening", even when the cause seems obvious.
+description: Find and fix a bug or a failing test by reproducing it first. Use when tests fail, something behaves wrongly, a run crashes, or the user says "this is broken" or "why is this happening".
 ---
 
 # Bugfix
@@ -86,7 +86,7 @@ A fix is a change like any other and must pass the same bar.
 1. Write a ticket for it from the kickoff skill's `ticket-template.md`
    (Kind: bug), unless it belongs to the ticket in progress. Its check is
    the failing command from step 2 and the test from step 6. Set
-   `Progress: claimed`.
+   `Progress: claimed`, and `Stakes:` by the table in standards section 10.
 2. Run steps 2 to 6 of the `build` skill on the fix: prove the test bites,
    tidy, guard the bar, prove it runs with a verdict, and the fresh judge.
 3. Set `Progress: built`.
@@ -103,8 +103,8 @@ Judge: passed in round <n>
 Same fault elsewhere: <places, or "none found">
 Would have caught it: <the signal you propose>
 Not checked: <or "nothing">
-Next step: explain it back.
-Type this: /explain
+Next step: <normal: "explain it back" | high stakes: "check it for security and privacy first">
+Type this: </explain | /security>
 ```
 
 If this bug came up in the middle of another ticket and the fix is not part

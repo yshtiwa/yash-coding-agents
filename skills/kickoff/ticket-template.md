@@ -2,6 +2,7 @@
 
 **Progress:** ready | claimed | built | explained | done
 **Kind:** new behaviour | bug | structure only
+**Stakes:** normal | high
 **Blocked by:** <ticket titles, or "nothing">
 
 ## What to build

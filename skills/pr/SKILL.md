@@ -13,9 +13,12 @@ merge or open a pull request, even if asked in passing. Give the command.
 
 - **A ticket's change** (product code): the full gate below.
 - **A support change** with no product code (the proof recipe, a new check,
-  docs, an agent rule file): no ticket, judge or explain-back is needed. The
-  gate is: tests and linter pass, one logical change, the scan is clean. In
-  the description, "Why" says what it supports.
+  the pipeline, docs, an agent rule file), **or a tiny change made with
+  `/quick`:** no ticket, judge or explain-back is needed. The
+  gate is: tests, linter and formatter pass; one logical change; the scan
+  is clean; and, for a `/quick` change, its five conditions still hold for
+  the diff as it is now (if not, it needs a ticket). In the description,
+  "Why" says what it supports.
 
 ## 1. Gate
 
@@ -27,11 +30,14 @@ Check each. If one fails, stop and say which, with the fix.
   fingerprint (standards section 6) and compare it with `NN-judged.txt` and
   `NN-explained.txt` in `.agent-notes/`. If it differs, the code changed
   since: go back to `/build` step 3.
+- **High stakes:** `NN-security.txt` in `.agent-notes/` says `clean` and
+  carries this same fingerprint. If not, the next step is `/security`.
 - The diff lowers no bar (`../standards/review-checklist.md` section A).
 - One logical change. Files that belong to another change are left out of
   this commit and named.
 - Within the size rule (standards section 5), or the reason is written down.
-  Count changed lines with `git diff HEAD --stat` plus the length of new files.
+  Count non-test lines with `git diff HEAD --stat` plus the length of new
+  files; report test lines separately.
 - **Secrets and personal data:** scan every changed and new file listed by
   `git status --short`, before anything is staged. Search for key, token and
   password assignments, long random strings, and the sensitive field names
@@ -126,5 +132,5 @@ changes product code goes back through `/build` step 3 onward and
 ```
 Ready for review: <the commit subject line>
 Next step: run the commands above, in order.
-After that, type: /next
+Type this afterwards: /next
 ```

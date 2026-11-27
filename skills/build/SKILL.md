@@ -1,6 +1,6 @@
 ---
 name: build
-description: Build one opened ticket to the point where it is proven and judged. Use after /ticket, or when the user says "build it" or "implement this ticket", even when the change looks small.
+description: Build one opened ticket to the point where it is proven and judged. Use after /ticket, or when the user says "build it" or "implement this ticket". Not for a tiny change with no logic; that is /quick.
 ---
 
 # Build
@@ -22,7 +22,12 @@ After each numbered step, update the ticket's line to
   list but not that section, stop: the `ticket` skill writes it. If the code
   for this ticket already exists and its tests pass, write nothing new and
   go to step 2.
+- **Coming back from a security check:** each open finding in the ticket's
+  `## Security` section is a new case. Start at step 1 with those cases
+  only. The judge then runs one fresh round on the fix alone.
 - Say the ticket's title and the smallest change that meets it.
+- If the ticket says `Stakes: high` and has no `## Design` section, stop:
+  the `design` skill comes first.
 - Find the repo's real commands for one test, the whole suite, the linter
   and the formatter (the repo's `CLAUDE.md`, then its build or CI file).
 - If the repo uses branches, check you are on this ticket's branch. If not,
@@ -150,6 +155,6 @@ Not checked: <or "nothing">
 Noticed, not touched: <or "nothing">
 Worth your attention: <the one part most worth a close look>
 Changed lines: <non-test> + <test>
-Next step: explain it back, so you can answer for it in review.
-Type this: /explain
+Next step: <normal: "explain it back, so you can answer for it in review" | high stakes: "check it for security and privacy first">
+Type this: </explain | /security>
 ```

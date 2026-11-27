@@ -1,6 +1,6 @@
 ---
 name: ticket
-description: Open one ticket before any code is written. Use as "/ticket" for the next ticket in line, "/ticket 05" to pick one, or when the user says "start the next ticket", even when the ticket looks obvious.
+description: Open one ticket before any code is written. Use as "/ticket" for the next ticket in line, "/ticket 05" to pick one, or when the user says "start the next ticket". Not for a tiny change with no logic; that is /quick.
 ---
 
 # Ticket
@@ -26,6 +26,10 @@ The repo's `CLAUDE.md`, the glossary, decision records for this area, the
 proof recipe (`docs/agents/proof.md`) if there is one, and the code the
 ticket will touch. Note the kind of change: **new behaviour, bug, or
 structure only.** A bug goes to the `bugfix` skill instead.
+
+Note the **stakes** too (standards section 10), and write them in the
+ticket as `Stakes: normal` or `Stakes: high`. Tiny work does not need a
+ticket: say so and point to `/quick`.
 
 *Done when* you can list your assumptions as numbered lines. Show them.
 
@@ -92,7 +96,8 @@ through pull requests, work out the branch command, for example
 Ticket: <title>
 Will build: <one sentence>
 Proof will be: <the command>
+Stakes: <normal | high, and why>
 First, run this yourself: <the branch command, if the repo uses branches>
-Next step: build it.
-Type this: /build
+Next step: <normal: "build it" | high: "settle the design first">
+Type this: </build | /design>
 ```

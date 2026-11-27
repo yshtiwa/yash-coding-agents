@@ -1,0 +1,54 @@
+what do I do now?	next
+where am I in this project?	next
+I just opened a new session on this repo, what's next	next
+let's plan the next feature, an analytics view	kickoff
+I want to start a new piece of work, plan it with me before any code	kickoff
+start the next ticket	ticket
+open ticket 05	ticket
+add a new rule that sorts overdue items first	ticket
+build it	build
+implement this ticket	build
+the tests are failing after my last change	bugfix
+why is the output list empty? this is broken	bugfix
+explain what you just built	explain
+you lost me, say that again more simply	explain
+commit this	pr
+open a pull request for this change	pr
+the reviewer left comments on my pull request	pr
+package this for review	pr
+set up the proof recipe for this repo	proof
+the proof recipe is out of date, refresh it	proof
+I'm stopping for today, save where we are	handoff
+this session is getting long and I'm mid-ticket, hand off	handoff
+make sure this mistake never happens again	lessons
+turn the reviewer's correction into a check	lessons
+what are our engineering standards for tests?	standards
+how should this be built? what's the architecture for the event log?	design
+this ticket adds a new stored format other code will read, settle the shape first	design
+is this safe? do a security review	security
+we are adding a new dependency and reading uploaded files, check it for security	security
+set up CI for this repo	release
+deploy this to production	release
+the nightly run takes four minutes, make it faster	speed
+the page loads slowly, optimise it	speed
+the agent keeps forgetting our conventions, set up CLAUDE.md	briefing
+you keep inventing commands that don't exist in this repo	briefing
+fix the typo in the README heading	quick
+rename this variable, no behaviour change	quick
+change the wording of the error message shown to the user	quick
+what is the capital of France?	none
+write me a haiku about autumn	none
+summarise this article for me	none
+where do the rules about what counts as proof live? show me the standards	standards
+read me the definition of done	standards
+before we build, sketch two ways to structure the new module and pick one	design
+we now store member IDs and call an outside service, check the change for privacy problems	security
+add a pipeline that runs the tests on every pull request	release
+this export times out on large files, find where the time goes	speed
+trim CLAUDE.md, it has grown to 600 lines and you ignore half of it	briefing
+add a threshold setting that changes which items get flagged	ticket
+the build is green but I think this function might be a bit slow someday	none
+just explain what a pull request is	none
+is it safe to eat raw cookie dough?	none
+how should I design my living room?	none
+release the kraken, what film is that from?	none

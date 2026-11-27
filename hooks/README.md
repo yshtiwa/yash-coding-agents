@@ -10,7 +10,7 @@ your other projects that are meant to commit. Turn it on per project.
 ## Turn it on for one project
 
 Add this to that project's `.claude/settings.json` (create the file if it is
-not there). Use the real path to this repo on your machine.
+not there). Replace the path with where you cloned this repo.
 
 ```json
 {
@@ -21,7 +21,7 @@ not there). Use the real path to this repo on your machine.
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$HOME/Documents/Claude Projects/yash-coding-agents/hooks/git-guard.py\""
+            "command": "python3 \"/full/path/to/yash-coding-skills/hooks/git-guard.py\""
           }
         ]
       }

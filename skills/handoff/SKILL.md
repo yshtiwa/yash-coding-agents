@@ -20,7 +20,7 @@ do not copy their contents. Replace any secret or personal value.
 
 Ticket: <title and path>
 Goal, in one sentence:
-Step reached: <ticket | build step n | judge round n | explain | pr>
+Step reached: <ticket | design | build step n | judge round n | security | explain | pr>
 
 Done and verified: <what, and the command that showed it>
 Done, not verified: <what>
